@@ -11,15 +11,17 @@ import torch.nn.functional as F
 from math import sqrt
 from utils import config
 
+from math import floor
+
 
 class Target(nn.Module):
     def __init__(self):
         super().__init__()
 
         ## TODO: define each layer
-        self.conv1 =
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=(5,5), stride=(2,2), padding=2)
         self.pool =
-        self.conv2 =
+        self.conv2 =nn.Conv2d(in_channels=, out_channels=64, kernel_size=(5,5), stride=(2,2), padding=2)
         self.conv3 =
         self.fc_1 =
         ##
