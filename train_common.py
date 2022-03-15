@@ -224,5 +224,5 @@ def predictions(logits):
         the predicted class output as a PyTorch Tensor
     """
     # TODO implement predictions
-    pred =
+    pred = np.argmax(logits, axis=1)
     return pred
