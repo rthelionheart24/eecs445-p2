@@ -138,6 +138,10 @@ def early_stopping(stats, curr_count_to_patience, global_min_loss):
     Returns: new values of curr_count_to_patience and global_min_loss
     """
     # TODO implement early stopping
+    if stats[1] >= global_min_loss:
+        curr_count_to_patience += 1
+    else:
+        global_min_loss = stats["val_loss"]
 
     #
     return curr_count_to_patience, global_min_loss
@@ -213,6 +217,13 @@ def train_epoch(data_loader, model, criterion, optimizer):
     """
     for i, (X, y) in enumerate(data_loader):
         # TODO implement training steps
+        y_pred = model(X)
+        
+        optimizer.zero_grad()
+        
+        loss = criterion(y_pred, y)
+        loss.backward()
+        optimizer.step()
 
 
 

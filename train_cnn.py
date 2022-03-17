@@ -37,7 +37,7 @@ def main():
 
     # TODO: define loss function, and optimizer
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam()
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3)
     #
 
     print("Number of float-valued parameters:", count_parameters(model))
