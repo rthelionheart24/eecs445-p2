@@ -138,10 +138,10 @@ def early_stopping(stats, curr_count_to_patience, global_min_loss):
     Returns: new values of curr_count_to_patience and global_min_loss
     """
     # TODO implement early stopping
-    if stats[1] >= global_min_loss:
+    if stats[-1][1] >= global_min_loss:
         curr_count_to_patience += 1
     else:
-        global_min_loss = stats["val_loss"]
+        global_min_loss = stats[-1][1]
 
     #
     return curr_count_to_patience, global_min_loss
