@@ -27,9 +27,8 @@ def Rotate(deg=20):
         :returns: H x W x C numpy array
         """
         # TODO
-        return rotate(
-            input=img, angle=np.random.randint(-deg, deg), mode="constant", cval=255
-        )
+        rot = rotate(input=img, angle=np.random.randint(-deg, deg), mode="constant", cval=255)
+        return rot
 
     return _rotate
 
@@ -50,9 +49,9 @@ def Grayscale():
         """
         # TODO
         avg = (img[:, :, 0] + img[:, :, 1] + img[:, :, 2]) / 3
-        return np.stack((avg,) * 3, axis=-1)
-        
-
+        avg = np.stack((avg,) * 3, axis=-1)
+        print(avg.shape)
+        return avg
 
     return _grayscale
 
@@ -82,12 +81,13 @@ def main(args):
     reader = csv.DictReader(open(args.input, "r"), delimiter=",")
     writer = csv.DictWriter(
         open(f"{args.datadir}/augmented_dogs.csv", "w"),
-        fieldnames=["filename", "semantic_label", "partition", "numeric_label", "task"],
+        fieldnames=["filename", "semantic_label",
+                    "partition", "numeric_label", "task"],
     )
     augment_partitions = set(args.partitions)
 
     # TODO: change `augmentations` to specify which augmentations to apply
-    augmentations = [Grayscale()]
+    augmentations = [Rotate()]
 
     writer.writeheader()
     os.makedirs(f"{args.datadir}/augmented/", exist_ok=True)
