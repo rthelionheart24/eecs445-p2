@@ -16,12 +16,15 @@ class Source(nn.Module):
     def __init__(self):
         super().__init__()
 
-        ## TODO: define each layer
-        self.conv1 =
-        self.pool =
-        self.conv2 =
-        self.conv3 =
-        self.fc1 =
+        # TODO: define each layer
+        self.conv1 = nn.Conv2d(in_channel=3, out_channel=16, kernel_size=(
+            5, 5), stride=(2, 2), padding=2)
+        self.pool = nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0)
+        self.conv2 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=(
+            5, 5), stride=(2, 2), padding=2)
+        self.conv3 = nn.Conv2d(in_channels=64, out_channels=8, kernel_size=(
+            5, 5), stride=(2, 2), padding=2)
+        self.fc1 = nn.Linear(in_features=32, out_features=8)
         ##
 
         self.init_weights()
@@ -33,8 +36,10 @@ class Source(nn.Module):
             nn.init.normal_(conv.weight, 0.0, 1 / sqrt(5 * 5 * C_in))
             nn.init.constant_(conv.bias, 0.0)
 
-        ## TODO: initialize the parameters for [self.fc1]
-
+        # TODO: initialize the parameters for [self.fc1]
+        nn.init.normal_(self.fc1.weight, 0.0, 1 / sqrt(32))
+        nn.init.constant_(self.fc1.bias, 0.0)
+        
         ##
 
     def forward(self, x):
@@ -43,8 +48,22 @@ class Source(nn.Module):
         """
         N, C, H, W = x.shape
 
-        ## TODO: forward pass
-
+        # TODO: forward pass
+        print(x.shape)
+        x = F.relu(self.conv1(x))
+        print(x.shape)
+        x = self.pool(x)
+        print(x.shape)
+        x = F.relu(self.conv2(x))
+        print(x.shape)
+        x = self.pool(x)
+        print(x.shape)
+        x = F.relu(self.conv3(x))
+        print(x.shape)
+        x = x.view(-1, 32)
+        print(x.shape)
+        x = self.fc_1(x)
+        print(x.shape)
         ##
 
-        return z
+        return x
