@@ -24,17 +24,26 @@ random.seed(42)
 
 def freeze_layers(model, num_layers=0):
     """Stop tracking gradients on selected layers."""
-    #TODO: modify model with the given layers frozen
+    # TODO: modify model with the given layers frozen
     #      e.g. if num_layers=2, freeze CONV1 and CONV2
     #      Hint: https://pytorch.org/docs/master/notes/autograd.html
 
+    for name, param in model.named_parameters():
+        if (num_layers == 0):
+            break
+        if name.count('weight') > 0 and name.count('conv') > 0:
+            param.requires_grad = False
+            num_layers -= 1
+
+    for name, param in model.named_parameters():
+        print(name, param.requires_grad)
 
 
 def train(tr_loader, va_loader, te_loader, model, model_name, num_layers=0):
     """Train transfer learning model."""
-    #TODO: define loss function, and optimizer
-    criterion =
-    optimizer =
+    # TODO: define loss function, and optimizer
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3)
     #
 
     print("Loading target model with", num_layers, "layers frozen")
@@ -57,8 +66,8 @@ def train(tr_loader, va_loader, te_loader, model, model_name, num_layers=0):
     # initial val loss for early stopping
     global_min_loss = stats[0][1]
 
-    #TODO: patience for early stopping
-    patience =
+    # TODO: patience for early stopping
+    patience = 5
     curr_count_to_patience = 0
     #
 

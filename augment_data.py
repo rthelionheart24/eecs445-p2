@@ -27,6 +27,9 @@ def Rotate(deg=20):
         :returns: H x W x C numpy array
         """
         # TODO
+        return rotate(
+            input=img, angle=np.random.randint(-deg, deg), mode="constant", cval=255
+        )
 
     return _rotate
 
@@ -46,6 +49,10 @@ def Grayscale():
 
         """
         # TODO
+        avg = (img[:, :, 0] + img[:, :, 1] + img[:, :, 2]) / 3
+        return np.stack((avg,) * 3, axis=-1)
+        
+
 
     return _grayscale
 
@@ -80,7 +87,7 @@ def main(args):
     augment_partitions = set(args.partitions)
 
     # TODO: change `augmentations` to specify which augmentations to apply
-    augmentations = [Grayscale(), Rotate()]
+    augmentations = [Grayscale()]
 
     writer.writeheader()
     os.makedirs(f"{args.datadir}/augmented/", exist_ok=True)

@@ -17,7 +17,7 @@ class Source(nn.Module):
         super().__init__()
 
         # TODO: define each layer
-        self.conv1 = nn.Conv2d(in_channel=3, out_channel=16, kernel_size=(
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=(
             5, 5), stride=(2, 2), padding=2)
         self.pool = nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=(
@@ -62,7 +62,7 @@ class Source(nn.Module):
         print(x.shape)
         x = x.view(-1, 32)
         print(x.shape)
-        x = self.fc_1(x)
+        x = self.fc1(x)
         print(x.shape)
         ##
 
