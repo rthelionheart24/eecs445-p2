@@ -122,6 +122,7 @@ class ImageStandardizer(object):
     def fit(self, X):
         """Calculate per-channel mean and standard deviation from dataset X."""
         # TODO: Complete this function
+        print(X.shape)
         self.image_mean = np.mean(X, axis=(0,1,2))
         self.image_std = np.std(X, axis=(0,1,2))
 

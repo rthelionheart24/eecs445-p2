@@ -27,8 +27,28 @@ def Rotate(deg=20):
         :returns: H x W x C numpy array
         """
         # TODO
-        rot = rotate(input=img, angle=np.random.randint(-deg, deg), mode="constant", cval=255)
-        return rot
+        img[:, :, 0] = rotate(
+            input=img[:, :, 0],
+            angle=np.random.randint(-deg, deg),
+            reshape=False,
+            mode="constant",
+            cval=0,
+        )
+        img[:, :, 1] = rotate(
+            input=img[:, :, 1],
+            angle=np.random.randint(-deg, deg),
+            reshape=False,
+            mode="constant",
+            cval=0,
+        )
+        img[:, :, 2] = rotate(
+            input=img[:, :, 2],
+            angle=np.random.randint(-deg, deg),
+            reshape=False,
+            mode="constant",
+            cval=0,
+        )
+        return img
 
     return _rotate
 
@@ -81,13 +101,12 @@ def main(args):
     reader = csv.DictReader(open(args.input, "r"), delimiter=",")
     writer = csv.DictWriter(
         open(f"{args.datadir}/augmented_dogs.csv", "w"),
-        fieldnames=["filename", "semantic_label",
-                    "partition", "numeric_label", "task"],
+        fieldnames=["filename", "semantic_label", "partition", "numeric_label", "task"],
     )
     augment_partitions = set(args.partitions)
 
     # TODO: change `augmentations` to specify which augmentations to apply
-    augmentations = [Rotate()]
+    augmentations = [Grayscale()]
 
     writer.writeheader()
     os.makedirs(f"{args.datadir}/augmented/", exist_ok=True)
@@ -106,7 +125,7 @@ def main(args):
             f"{args.datadir}/images/{row['filename']}",
             augmentations,
             n=1,
-            original=True,  # TODO: change to False to exclude original image.
+            original=False,  # TODO: change to False to exclude original image.
         )
         for i, img in enumerate(imgs):
             fname = f"{row['filename'][:-4]}_aug_{i}.png"
