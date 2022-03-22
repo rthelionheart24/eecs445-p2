@@ -31,9 +31,12 @@ def main():
     model = Challenge()
 
     # TODO: define loss function, and optimizer
-    criterion =
-    optimizer =
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3, weight_decay=0.1)
     #
+    
+    #* Dropout feature
+    torch.nn.Dropout(p=0.5, inplace=False)
 
     # Attempts to restore the latest checkpoint if exists
     print("Loading challenge...")
@@ -50,7 +53,7 @@ def main():
     global_min_loss = stats[0][1]
 
     #TODO: define patience for early stopping
-    patience =
+    patience = 10
     curr_count_to_patience = 0
     #
 
