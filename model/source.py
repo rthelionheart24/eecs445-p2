@@ -49,21 +49,15 @@ class Source(nn.Module):
         N, C, H, W = x.shape
 
         # TODO: forward pass
-        print(x.shape)
+
         x = F.relu(self.conv1(x))
-        print(x.shape)
         x = self.pool(x)
-        print(x.shape)
         x = F.relu(self.conv2(x))
-        print(x.shape)
         x = self.pool(x)
-        print(x.shape)
         x = F.relu(self.conv3(x))
-        print(x.shape)
         x = x.view(-1, 32)
-        print(x.shape)
         x = self.fc1(x)
-        print(x.shape)
+
         ##
 
         return x

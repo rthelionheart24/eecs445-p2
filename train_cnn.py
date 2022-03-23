@@ -57,7 +57,7 @@ def main():
     global_min_loss = stats[0][1]
 
     # TODO: define patience for early stopping
-    patience = 10
+    patience = 5
     curr_count_to_patience = 0
     #
 
