@@ -28,12 +28,14 @@ def freeze_layers(model, num_layers=0):
     #      e.g. if num_layers=2, freeze CONV1 and CONV2
     #      Hint: https://pytorch.org/docs/master/notes/autograd.html
 
+    track = num_layers * 2
+
     for name, param in model.named_parameters():
-        if (num_layers == 0):
+        if track == 0:
             break
-        if name.count('weight') > 0 and name.count('conv') > 0:
-            param.requires_grad = False
-            num_layers -= 1
+
+        param.requires_grad = False
+        track -= 1
 
     for name, param in model.named_parameters():
         print(name, param.requires_grad)

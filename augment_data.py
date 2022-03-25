@@ -88,7 +88,7 @@ def main(args):
     augment_partitions = set(args.partitions)
 
     # TODO: change `augmentations` to specify which augmentations to apply
-    augmentations = []
+    augmentations = [Grayscale()]
 
     writer.writeheader()
     os.makedirs(f"{args.datadir}/augmented/", exist_ok=True)

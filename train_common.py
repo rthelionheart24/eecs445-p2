@@ -141,6 +141,7 @@ def early_stopping(stats, curr_count_to_patience, global_min_loss):
     if stats[-1][1] >= global_min_loss:
         curr_count_to_patience += 1
     else:
+        curr_count_to_patience = 0
         global_min_loss = stats[-1][1]
 
     #
