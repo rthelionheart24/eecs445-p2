@@ -33,10 +33,12 @@ def main():
     # TODO: define loss function, and optimizer
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3, weight_decay=0.1)
+
     #
     
     #* Dropout feature
     torch.nn.Dropout(p=0.5, inplace=False)
+    model.to("cuda")
 
     # Attempts to restore the latest checkpoint if exists
     print("Loading challenge...")
