@@ -105,12 +105,19 @@ def main():
     Train four different models with 4 layers frozen.
     """
     # data loaders
-    tr_loader, va_loader, te_loader, _ = get_train_val_test_loaders(
-        task="target",
-        batch_size=config("challenge.batch_size"),
-    )
+    if check_for_augmented_data("./data"):
+        tr_loader, va_loader, te_loader, _ = get_train_val_test_loaders(
+            task="target", batch_size=config("challenge.batch_size"), augment=True
+        )
+    else:
+        tr_loader, va_loader, te_loader, _ = get_train_val_test_loaders(
+            task="target",
+            batch_size=config("challenge.batch_size"),
+        )
 
     model = Challenge()
+
+    torch.nn.Dropout(p=0.5)
     
     freeze_three = copy.deepcopy(model)
 
