@@ -25,7 +25,7 @@ random.seed(42)
 def freeze_layers(model, num_layers=0):
     """Stop tracking gradients on selected layers."""
     # TODO: modify model with the given layers frozen
-    #      e.g. if num_layers=2, freeze CONV1 and CONV2
+    #      e.g. if num_layers=2, freeze CONV1 and CONV2     
     #      Hint: https://pytorch.org/docs/master/notes/autograd.html
 
     track = num_layers * 2
