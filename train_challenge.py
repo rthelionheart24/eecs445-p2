@@ -102,28 +102,26 @@ def train(tr_loader, va_loader, te_loader, model, model_name, num_layers=0):
 def main():
     """Train transfer learning model and display training plots.
 
-    Train four different models with {0, 1, 2, 3} layers frozen.
+    Train four different models with 4 layers frozen.
     """
     # data loaders
     tr_loader, va_loader, te_loader, _ = get_train_val_test_loaders(
         task="target",
-        batch_size=config("target.batch_size"),
+        batch_size=config("challenge.batch_size"),
     )
 
     model = Challenge()
     
-    freeze_four = copy.deepcopy(model)
+    freeze_three = copy.deepcopy(model)
 
-    freeze_layers(freeze_four, 4)
+    freeze_layers(freeze_three, 3)
     print("Loading source...")
-    freeze_four, _, _ = restore_checkpoint(
-        freeze_four, config("source.checkpoint"), force=True, pretrain=True
+    freeze_three, _, _ = restore_checkpoint(
+        freeze_three, config("source.checkpoint"), force=True, pretrain=True
     )
 
-   
-
     train(tr_loader, va_loader, te_loader,
-          freeze_four, "./checkpoints/target3/", 4)
+          freeze_three, "./checkpoints/challenge3/", 3)
 
 
 if __name__ == "__main__":
